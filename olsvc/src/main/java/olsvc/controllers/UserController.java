@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
-    @RequestMapping("/create")
+    @RequestMapping("/user/create")
     @ResponseBody
-    public String create(String email, String login) {
+    public String create(String email, String login, String password) {
         User user = null;
         try {
-            user = new User(email, login);
+            user = new User(email, login, password);
             userDao.save(user);
         }
         catch (Exception ex) {
@@ -26,7 +26,7 @@ public class UserController {
         return "User succesfully created! (id = " + user.getId() + ")";
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("/user/delete")
     @ResponseBody
     public String delete(long id) {
         try {
@@ -39,13 +39,13 @@ public class UserController {
         return "User succesfully deleted!";
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/user/update")
     @ResponseBody
     public String updateUser(long id, String email, String login) {
         try {
             User user = userDao.findOne(id);
             user.setEmail(email);
-            user.setName(login);
+            user.setLogin(login);
             userDao.save(user);
         }
         catch (Exception ex) {
@@ -54,7 +54,7 @@ public class UserController {
         return "User succesfully updated!";
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/user/{id}")
     @ResponseBody
     public User getUserDetails(@PathVariable("id") long id){
         return userDao.findOne(id);

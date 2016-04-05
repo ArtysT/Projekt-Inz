@@ -22,6 +22,9 @@ public class User {
     @Column(unique = true)
     private String login;
 
+    //password
+    @NotNull
+    private String password;
 
     public User() { }
 
@@ -29,9 +32,11 @@ public class User {
         this.user_id = id;
     }
 
-    public User(String email, String login) {
+    public User(String email, String login, String password) {
         this.email = email;
         this.login = login;
+        this.password = password;
+
     }
 
     // Getter and setter methods
@@ -52,11 +57,19 @@ public class User {
         this.email = value;
     }
 
-    public String getName() {
+    public String getLogin() {
         return login;
     }
 
-    public void setName(String value) {
+    public void setLogin(String value) {
         this.login = value;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

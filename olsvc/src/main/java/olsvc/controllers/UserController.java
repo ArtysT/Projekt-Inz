@@ -4,26 +4,33 @@ import olsvc.models.User;
 import olsvc.models.UserDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
 
-    @RequestMapping("/user/create")
-    @ResponseBody
-    public String create(String email, String login, String password) {
-        User user = null;
-        try {
-            user = new User(email, login, password);
+    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
+    public ResponseEntity<User> create(@RequestBody User user) {
+        if (user != null)
             userDao.save(user);
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public ResponseEntity<User> login(@RequestBody User login) {
+            User user = userDao.findByLogin(login.getLogin());
+        if(user == null)
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        else if (login.getPassword().equals(user.getPassword())){
+            return new ResponseEntity<User>(HttpStatus.OK);
         }
-        catch (Exception ex) {
-            return "Error creating the user: " + ex.toString();
+        else {
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
-        return "User succesfully created! (id = " + user.getId() + ")";
     }
 
     @RequestMapping("/user/delete")

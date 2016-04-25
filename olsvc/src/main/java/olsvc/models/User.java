@@ -36,7 +36,6 @@ public class User {
         this.email = email;
         this.login = login;
         this.password = password;
-
     }
 
     // Getter and setter methods

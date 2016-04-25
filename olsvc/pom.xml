@@ -28,12 +28,17 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>olsvc.Application</start-class>
         <java.version>1.8</java.version>
+        <tomcat.version>7.0.59</tomcat.version>
     </properties>
 
     <build>
@@ -44,5 +49,7 @@
             </plugin>
         </plugins>
     </build>
+
+    <packaging>war</packaging>
 
 </project>

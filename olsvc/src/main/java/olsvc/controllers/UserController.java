@@ -14,22 +14,24 @@ public class UserController {
 
     @RequestMapping(value = "/user/create", method = RequestMethod.POST)
     public ResponseEntity<User> create(@RequestBody User user) {
-        if (user != null)
-            userDao.save(user);
 
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        if (user != null){
+            userDao.save(user);
+            return new ResponseEntity<User>(HttpStatus.CREATED);}
+        else
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public ResponseEntity<User> login(@RequestBody User login) {
             User user = userDao.findByLogin(login.getLogin());
         if(user == null)
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         else if (login.getPassword().equals(user.getPassword())){
-            return new ResponseEntity<User>(HttpStatus.OK);
+            return new ResponseEntity(user.getId() , HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 

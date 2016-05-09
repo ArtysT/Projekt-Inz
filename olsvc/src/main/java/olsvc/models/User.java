@@ -10,6 +10,7 @@ public class User {
     //id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private long user_id;
 
     //email
@@ -25,6 +26,17 @@ public class User {
     //password
     @NotNull
     private String password;
+
+    //compay id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    //activated
+    private boolean activated;
+
+    //activation key
+    private int akey;
 
     public User() { }
 
@@ -71,4 +83,29 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    public int getAKey() {
+        return akey;
+    }
+
+    public void setAKey(int akey) {
+        this.akey = akey;
+    }
+
 }

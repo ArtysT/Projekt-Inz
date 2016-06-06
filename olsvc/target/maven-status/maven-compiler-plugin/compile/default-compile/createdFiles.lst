@@ -1,0 +1,11 @@
+olsvc\models\UserDao.class
+olsvc\Application.class
+olsvc\controllers\AdController.class
+olsvc\mail\SmtpMailSender.class
+olsvc\models\Company.class
+olsvc\controllers\UserController.class
+olsvc\models\User.class
+olsvc\controllers\MailController.class
+olsvc\models\Ad.class
+olsvc\models\AdDao.class
+olsvc\models\CompanyDao.class
